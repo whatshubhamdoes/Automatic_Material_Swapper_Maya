@@ -180,6 +180,10 @@ proc arnoldConverter (string $sourceColorAttr, string $sourceOpacityAttr, string
 	float $total = size($sNode);
 	progressWindow
          -title "Converting"
+		 sfhfahjs 
+		 sfjhsfjsfhjs
+		 fhkasfhsjh
+		 
          -progress 0
          -status "Converting: Nothing"
          -isInterruptable false;
