@@ -41,9 +41,9 @@ def convert_aiStandardSurface_material() :
     for attr in components_arnold :
         arnold_mat_new=''.join(arnold_mat)
         value = cmds.getAttr(arnold_mat_new + attr )
-        print(arnold_mat_new+attr)
+        #print(arnold_mat_new+attr)
         file_node=cmds.connectionInfo(arnold_mat_new + attr, sourceFromDestination=True)[0]
-        print(file_node)
+        #print(file_node)
         #print(value)
         #print(attr)
         #print(arnold_mat)
@@ -56,9 +56,9 @@ def convert_aiStandardSurface_material() :
                 # Get the file texture path and set it on PxrSurface1
                 #file_path = cmds.getAttr(arnold_mat_new + attr + '.fileTextureName')
                 file_path = cmds.listConnections(arnold_mat_new + attr,type='file')
-                print(file_path)
+                #print(file_path)
                 file_path=''.join(file_path)
-                print(cmds.getAttr(file_path + '.outColor'))
+                #print(cmds.getAttr(file_path + '.outColor'))
                 cmds.connectAttr(file_path + '.outColor',renderman_shader_new)
             #print(renderman_shader)
             #print(shading_group)
