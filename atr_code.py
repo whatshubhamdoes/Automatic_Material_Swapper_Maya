@@ -99,6 +99,7 @@ def convert_aiStandardSurface_material() :
                             #print(renderman_shader)
                             #print(shading_group)
                         if attr == '.metalness' :
+                            # as explained in this - https://rmanwiki.pixar.com/display/REN24/PxrMetallicWorkflow
                             renderman_shader=''.join(renderman_shader)
                             rman_metallic_shader = cmds.shadingNode('PxrMetallicWorkflow', asShader=True)
                             diffuse_color = cmds.getAttr(arnold_mat_new + '.baseColor' )
