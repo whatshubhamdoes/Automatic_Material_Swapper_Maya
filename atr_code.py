@@ -20,7 +20,7 @@ def convert_aiStandardSurface_material() :
         if shadeEng :
             for sg in shadeEng :
                 arnold_mat = cmds.ls(cmds.listConnections(shadeEng), materials = True)
-                if cmds.nodeType(arnold_mat) != 'aiStandardSurface':
+                if cmds.nodeType(arnold_mat) != 'aiStandardSurface' :
                     cmds.confirmDialog(title='Error', message='Selected object does not have an Arnold Standard Surface material applied.', button=['OK'], defaultButton='OK')
                     cmds.warning("Error : Selected object does not have an Arnold Standard Surface material applied.")
                     return
@@ -102,11 +102,9 @@ def convert_aiStandardSurface_material() :
                             # as explained in this - https://rmanwiki.pixar.com/display/REN24/PxrMetallicWorkflow
                             renderman_shader=''.join(renderman_shader)
                             rman_metallic_shader = cmds.shadingNode('PxrMetallicWorkflow', asShader=True)
-                            """diffuse_color = cmds.getAttr(arnold_mat_new + '.baseColor' )
-                            cmds.setAttr(rman_metallic_shader + '.baseColor',diffuse_color[0][0],diffuse_color[0][1],diffuse_color[0][2],type='double3')
-                            metalness = cmds.getAttr(arnold_mat_new + attr )
-                            cmds.setAttr(rman_metallic_shader + '.metallic',metalness)
-                            print(file_node)"""
+                            
+                            print(f"{file_node=}")
+                            
                             if file_node:
                                 # Get the file texture path and set it on PxrSurface1
                                 #file_path = cmds.getAttr(arnold_mat_new + attr + '.fileTextureName')
@@ -120,14 +118,32 @@ def convert_aiStandardSurface_material() :
                                 print(file_path_metallic)
                                 file_path_metallic=''.join(file_path_metallic)
                                 #print(cmds.getAttr(file_path_metallic + '.outColor'))
-                                cmds.connectAttr(file_path_metallic + '.outColor',rman_metallic_shader + '.metallic')
+                                cmds.connectAttr(file_path_metallic + '.outAlpha',rman_metallic_shader + '.metallic')
+                                """cmds.connectAttr(rman_metallic_shader + '.resultDiffuseRGB',renderman_shader + '.diffuseColor',force=True)
+                                cmds.connectAttr(rman_metallic_shader + '.resultSpecularEdgeRGB',renderman_shader + '.specularEdgeColor',force=True)
+                                cmds.connectAttr(rman_metallic_shader + '.resultSpecularFaceRGB',renderman_shader + '.specularFaceColor',force=True)"""
                             else:
-                                diffuse_color = cmds.getAttr(arnold_mat_new + '.baseColor' )
-                                cmds.setAttr(rman_metallic_shader + '.baseColor',diffuse_color[0][0],diffuse_color[0][1],diffuse_color[0][2],type='double3')
-                                metalness = cmds.getAttr(arnold_mat_new + attr )
-                                cmds.setAttr(rman_metallic_shader + '.metallic',metalness)
-                            #print(renderman_shader)
-                            #print(shading_group)"""
+                                file_node_new=cmds.connectionInfo(arnold_mat_new + '.baseColor', sourceFromDestination=True)
+                                if file_node_new:
+                                    file_path_bColor = cmds.listConnections(arnold_mat_new + '.baseColor',type='file')
+                                    print(file_path_bColor)
+                                    file_path_bColor=''.join(file_path_bColor)
+                                    print(file_path_bColor)
+                                    print(cmds.getAttr(file_path_bColor + '.outColor'))
+                                    cmds.connectAttr(file_path_bColor + '.outColor',rman_metallic_shader + '.baseColor')
+                                    metalness = cmds.getAttr(arnold_mat_new + attr )
+                                    cmds.setAttr(rman_metallic_shader + '.metallic',metalness)
+                                    """cmds.connectAttr(rman_metallic_shader + '.resultDiffuseRGB',renderman_shader + '.diffuseColor',force=True)
+                                    cmds.connectAttr(rman_metallic_shader + '.resultSpecularEdgeRGB',renderman_shader + '.specularEdgeColor',force=True)
+                                    cmds.connectAttr(rman_metallic_shader + '.resultSpecularFaceRGB',renderman_shader + '.specularFaceColor',force=True)"""
+                                else:       
+                                    diffuse_color = cmds.getAttr(arnold_mat_new + '.baseColor' )
+                                    print(diffuse_color)
+                                    cmds.setAttr(rman_metallic_shader + '.baseColor',diffuse_color[0][0],diffuse_color[0][1],diffuse_color[0][2],type='double3')
+                                    metalness = cmds.getAttr(arnold_mat_new + attr )
+                                    cmds.setAttr(rman_metallic_shader + '.metallic',metalness)
+                                    #print(renderman_shader)
+                                    #print(shading_group)
                             cmds.connectAttr(rman_metallic_shader + '.resultDiffuseRGB',renderman_shader + '.diffuseColor',force=True)
                             cmds.connectAttr(rman_metallic_shader + '.resultSpecularEdgeRGB',renderman_shader + '.specularEdgeColor',force=True)
                             cmds.connectAttr(rman_metallic_shader + '.resultSpecularFaceRGB',renderman_shader + '.specularFaceColor',force=True)
