@@ -98,4 +98,6 @@ def convert_PxrSurface_material() :
 
                     cmds.sets(sel[0], edit=True, forceElement=shading_group)
     
+
+    
 convert_PxrSurface_material()

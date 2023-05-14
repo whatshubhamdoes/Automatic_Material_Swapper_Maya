@@ -101,4 +101,6 @@ def convert_aiStandardSurface_material() :
 
                     cmds.sets(sel[0], edit=True, forceElement=shading_group)
     
+
+    
 convert_aiStandardSurface_material()
