@@ -8,8 +8,7 @@ Supported materials in both the render engines:
 * Renderman - PxrSurface
 
 ## Installation
-* Copy the code from Material_Swapper.py   
-(I.e: C:\Users\user\Documents\maya\scripts on Windows)      
+* Copy the code from Material_Swapper.py         
  
 * Create a shelf button in Maya and paste the above copied code.  
 
