@@ -133,43 +133,6 @@ def convert_PxrSurface_material() :
                     for attr in components_pxrmat :
                         pxr_mat_new=''.join(pxr_mat)
                         if(attr=='.metallic'):
-                            pass
-                        else:
-                            value = cmds.getAttr(pxr_mat_new + attr )
-                            file_node=cmds.connectionInfo(pxr_mat_new + attr, sourceFromDestination=True)
-                        if attr == '.diffuseColor' or attr == '.resultDiffuseRGB':
-                            arnold_shader=''.join(arnold_shader)
-                            arnold_shader_new=arnold_shader + '.baseColor'
-                            cmds.setAttr(arnold_shader_new,value[0][0],value[0][1],value[0][2],type='double3')
-                            if file_node:
-                                if (True):
-                                    file_paths = cmds.listConnections('PxrMetallicWorkflow*'+'.baseColor')
-                                    if(file_paths):
-                                        file_path = file_paths[0]
-                                        file_path=''.join(file_path)
-                                        cmds.connectAttr(file_path + '.outColor', arnold_shader_new)
-                                else:
-                                    file_path = cmds.listConnections(pxr_mat_new + attr,type='file')
-                                    file_path=''.join(file_path)
-                                    cmds.connectAttr(file_path + '.outColor',arnold_shader_new)
-                        if attr == '.specularFaceColor' :
-                            arnold_shader=''.join(arnold_shader)
-                            arnold_shader_new=arnold_shader + '.specularColor'
-                            cmds.setAttr(arnold_shader_new,value[0][0],value[0][1],value[0][2],type='double3')
-                            if file_node:
-                                if (True):
-                                    file_paths_face = cmds.getAttr('PxrMetallicWorkflow*'+'.resultSpecularFaceRGB')
-                                    file_paths_edge = cmds.getAttr('PxrMetallicWorkflow*'+'.resultSpecularEdgeRGB')
-                                    cmds.setAttr(arnold_shader_new,((file_paths_face[0][0]+file_paths_edge[0][0])/2),((file_paths_face[0][1]+file_paths_edge[0][1])/2),((file_paths_face[0][2]+file_paths_edge[0][2])/2),type='double3')
-                        if attr == '.specularRoughness' :
-                            arnold_shader=''.join(arnold_shader)
-                            arnold_shader_new=arnold_shader + '.specularRoughness'
-                            cmds.setAttr(arnold_shader_new,value)
-                            if file_node:
-                                file_path = cmds.listConnections(pxr_mat_new + attr)
-                                file_path=''.join(file_path)
-                                cmds.connectAttr(file_path + '.outAlpha',arnold_shader_new)
-                        if attr == '.metallic' :
                             # as explained in this - https://rmanwiki.pixar.com/display/REN24/PxrMetallicWorkflow
                             arnold_shader=''.join(arnold_shader)
                             arnold_shader_new=arnold_shader + '.metalness'
@@ -178,13 +141,57 @@ def convert_PxrSurface_material() :
                                 file_path = file_paths[0]
                                 file_path=''.join(file_path)
                                 cmds.connectAttr(file_path + '.outAlpha', arnold_shader_new) 
-                        if attr == '.bumpNormal' :
-                            arnold_shader=''.join(arnold_shader)
-                            arnold_shader_new=arnold_shader + '.normalCamera'
-                            if file_node:
-                                file_path = cmds.listConnections(pxr_mat_new + attr)
-                                file_path=''.join(file_path)
-                                cmds.connectAttr(file_path + '.outValue',arnold_shader_new)
+                        else:
+                            value = cmds.getAttr(pxr_mat_new + attr )
+                            file_node=cmds.connectionInfo(pxr_mat_new + attr, sourceFromDestination=True)
+                            if attr == '.diffuseColor' or attr == '.resultDiffuseRGB':
+                                arnold_shader=''.join(arnold_shader)
+                                arnold_shader_new=arnold_shader + '.baseColor'
+                                cmds.setAttr(arnold_shader_new,value[0][0],value[0][1],value[0][2],type='double3')
+                                if file_node:
+                                    if (True):
+                                        file_paths = cmds.listConnections('PxrMetallicWorkflow*'+'.baseColor')
+                                        if(file_paths):
+                                            file_path = file_paths[0]
+                                            file_path=''.join(file_path)
+                                            cmds.connectAttr(file_path + '.outColor', arnold_shader_new)
+                                    else:
+                                        file_path = cmds.listConnections(pxr_mat_new + attr,type='file')
+                                        file_path=''.join(file_path)
+                                        cmds.connectAttr(file_path + '.outColor',arnold_shader_new)
+                            if attr == '.specularFaceColor' :
+                                arnold_shader=''.join(arnold_shader)
+                                arnold_shader_new=arnold_shader + '.specularColor'
+                                cmds.setAttr(arnold_shader_new,value[0][0],value[0][1],value[0][2],type='double3')
+                                if file_node:
+                                    if (True):
+                                        file_paths_face = cmds.getAttr('PxrMetallicWorkflow*'+'.resultSpecularFaceRGB')
+                                        file_paths_edge = cmds.getAttr('PxrMetallicWorkflow*'+'.resultSpecularEdgeRGB')
+                                        cmds.setAttr(arnold_shader_new,((file_paths_face[0][0]+file_paths_edge[0][0])/2),((file_paths_face[0][1]+file_paths_edge[0][1])/2),((file_paths_face[0][2]+file_paths_edge[0][2])/2),type='double3')
+                            if attr == '.specularRoughness' :
+                                arnold_shader=''.join(arnold_shader)
+                                arnold_shader_new=arnold_shader + '.specularRoughness'
+                                cmds.setAttr(arnold_shader_new,value)
+                                if file_node:
+                                    file_path = cmds.listConnections(pxr_mat_new + attr)
+                                    file_path=''.join(file_path)
+                                    cmds.connectAttr(file_path + '.outAlpha',arnold_shader_new)
+                            """if attr == '.metallic' :
+                                # as explained in this - https://rmanwiki.pixar.com/display/REN24/PxrMetallicWorkflow
+                                arnold_shader=''.join(arnold_shader)
+                                arnold_shader_new=arnold_shader + '.metalness'
+                                file_paths = cmds.listConnections('PxrMetallicWorkflow*'+'.metallic')
+                                if(file_paths):
+                                    file_path = file_paths[0]
+                                    file_path=''.join(file_path)
+                                    cmds.connectAttr(file_path + '.outAlpha', arnold_shader_new) """
+                            if attr == '.bumpNormal' :
+                                arnold_shader=''.join(arnold_shader)
+                                arnold_shader_new=arnold_shader + '.normalCamera'
+                                if file_node:
+                                    file_path = cmds.listConnections(pxr_mat_new + attr)
+                                    file_path=''.join(file_path)
+                                    cmds.connectAttr(file_path + '.outValue',arnold_shader_new)
 
                     cmds.sets(sel[0], edit=True, forceElement=shading_group)
 
@@ -194,23 +201,24 @@ def createUI():
     # Define a function to call the selected conversion function
     def convert_selected(conversion_group):
         selected_button = cmds.radioCollection(conversion_group, query=True, select=True)
-        print(f"{selected_button=}")
-        if selected_button == arnold_to_renderman_button:
+        selected_button_f = cmds.radioButton(selected_button, query=True, label=True)
+        print(f"{selected_button_f=}")
+        if selected_button_f == "Arnold to Renderman":
             convert_aiStandardSurface_material()
-        elif selected_button == renderman_to_arnold_button:
+        elif selected_button_f == "Renderman to Arnold":
             convert_PxrSurface_material()
     
     window_name = "Automatic_Material_Swapper"
     if cmds.window(window_name, exists=True):
         cmds.deleteUI(window_name)
         
-    cmds.window(window_name, title="Automatic Material Swapper : Arnold and Renderman",widthHeight=(300, 100))
+    cmds.window(window_name, title="Automatic Material Swapper : Arnold and Renderman",widthHeight=(500, 300))
 
     # Create a radio button group to choose the conversion function
-    layout=cmds.columnLayout()
-    cmds.text(label="Select the conversion function:")
+    layout=cmds.columnLayout(adjustableColumn=True)
+    cmds.text(label="Please select the object and then select the conversion function:")
     conversion_group = cmds.radioCollection()
-    arnold_to_renderman_button = cmds.radioButton(label="Arnold to Renderman", select=True)
+    arnold_to_renderman_button = cmds.radioButton(label="Arnold to Renderman")
     print(f"{arnold_to_renderman_button=}")
     renderman_to_arnold_button = cmds.radioButton(label="Renderman to Arnold")
     print(f"{renderman_to_arnold_button=}")
@@ -218,7 +226,6 @@ def createUI():
     # Create a button to trigger the selected conversion function
     cmds.button(label="Convert", command=lambda *args: convert_selected(conversion_group))
     cmds.showWindow(window_name)
-    convert_selected(conversion_group)
 
 
 createUI()
