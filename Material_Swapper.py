@@ -176,15 +176,6 @@ def convert_PxrSurface_material() :
                                     file_path = cmds.listConnections(pxr_mat_new + attr)
                                     file_path=''.join(file_path)
                                     cmds.connectAttr(file_path + '.outAlpha',arnold_shader_new)
-                            """if attr == '.metallic' :
-                                # as explained in this - https://rmanwiki.pixar.com/display/REN24/PxrMetallicWorkflow
-                                arnold_shader=''.join(arnold_shader)
-                                arnold_shader_new=arnold_shader + '.metalness'
-                                file_paths = cmds.listConnections('PxrMetallicWorkflow*'+'.metallic')
-                                if(file_paths):
-                                    file_path = file_paths[0]
-                                    file_path=''.join(file_path)
-                                    cmds.connectAttr(file_path + '.outAlpha', arnold_shader_new) """
                             if attr == '.bumpNormal' :
                                 arnold_shader=''.join(arnold_shader)
                                 arnold_shader_new=arnold_shader + '.normalCamera'

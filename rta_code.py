@@ -36,43 +36,6 @@ def convert_PxrSurface_material() :
                     for attr in components_pxrmat :
                         pxr_mat_new=''.join(pxr_mat)
                         if(attr=='.metallic'):
-                            pass
-                        else:
-                            value = cmds.getAttr(pxr_mat_new + attr )
-                            file_node=cmds.connectionInfo(pxr_mat_new + attr, sourceFromDestination=True)
-                        if attr == '.diffuseColor' or attr == '.resultDiffuseRGB':
-                            arnold_shader=''.join(arnold_shader)
-                            arnold_shader_new=arnold_shader + '.baseColor'
-                            cmds.setAttr(arnold_shader_new,value[0][0],value[0][1],value[0][2],type='double3')
-                            if file_node:
-                                if (True):
-                                    file_paths = cmds.listConnections('PxrMetallicWorkflow*'+'.baseColor')
-                                    if(file_paths):
-                                        file_path = file_paths[0]
-                                        file_path=''.join(file_path)
-                                        cmds.connectAttr(file_path + '.outColor', arnold_shader_new)
-                                else:
-                                    file_path = cmds.listConnections(pxr_mat_new + attr,type='file')
-                                    file_path=''.join(file_path)
-                                    cmds.connectAttr(file_path + '.outColor',arnold_shader_new)
-                        if attr == '.specularFaceColor' :
-                            arnold_shader=''.join(arnold_shader)
-                            arnold_shader_new=arnold_shader + '.specularColor'
-                            cmds.setAttr(arnold_shader_new,value[0][0],value[0][1],value[0][2],type='double3')
-                            if file_node:
-                                if (True):
-                                    file_paths_face = cmds.getAttr('PxrMetallicWorkflow*'+'.resultSpecularFaceRGB')
-                                    file_paths_edge = cmds.getAttr('PxrMetallicWorkflow*'+'.resultSpecularEdgeRGB')
-                                    cmds.setAttr(arnold_shader_new,((file_paths_face[0][0]+file_paths_edge[0][0])/2),((file_paths_face[0][1]+file_paths_edge[0][1])/2),((file_paths_face[0][2]+file_paths_edge[0][2])/2),type='double3')
-                        if attr == '.specularRoughness' :
-                            arnold_shader=''.join(arnold_shader)
-                            arnold_shader_new=arnold_shader + '.specularRoughness'
-                            cmds.setAttr(arnold_shader_new,value)
-                            if file_node:
-                                file_path = cmds.listConnections(pxr_mat_new + attr)
-                                file_path=''.join(file_path)
-                                cmds.connectAttr(file_path + '.outAlpha',arnold_shader_new)
-                        if attr == '.metallic' :
                             # as explained in this - https://rmanwiki.pixar.com/display/REN24/PxrMetallicWorkflow
                             arnold_shader=''.join(arnold_shader)
                             arnold_shader_new=arnold_shader + '.metalness'
@@ -81,13 +44,48 @@ def convert_PxrSurface_material() :
                                 file_path = file_paths[0]
                                 file_path=''.join(file_path)
                                 cmds.connectAttr(file_path + '.outAlpha', arnold_shader_new) 
-                        if attr == '.bumpNormal' :
-                            arnold_shader=''.join(arnold_shader)
-                            arnold_shader_new=arnold_shader + '.normalCamera'
-                            if file_node:
-                                file_path = cmds.listConnections(pxr_mat_new + attr)
-                                file_path=''.join(file_path)
-                                cmds.connectAttr(file_path + '.outValue',arnold_shader_new)
+                        else:
+                            value = cmds.getAttr(pxr_mat_new + attr )
+                            file_node=cmds.connectionInfo(pxr_mat_new + attr, sourceFromDestination=True)
+                            if attr == '.diffuseColor' or attr == '.resultDiffuseRGB':
+                                arnold_shader=''.join(arnold_shader)
+                                arnold_shader_new=arnold_shader + '.baseColor'
+                                cmds.setAttr(arnold_shader_new,value[0][0],value[0][1],value[0][2],type='double3')
+                                if file_node:
+                                    if (True):
+                                        file_paths = cmds.listConnections('PxrMetallicWorkflow*'+'.baseColor')
+                                        if(file_paths):
+                                            file_path = file_paths[0]
+                                            file_path=''.join(file_path)
+                                            cmds.connectAttr(file_path + '.outColor', arnold_shader_new)
+                                    else:
+                                        file_path = cmds.listConnections(pxr_mat_new + attr,type='file')
+                                        file_path=''.join(file_path)
+                                        cmds.connectAttr(file_path + '.outColor',arnold_shader_new)
+                            if attr == '.specularFaceColor' :
+                                arnold_shader=''.join(arnold_shader)
+                                arnold_shader_new=arnold_shader + '.specularColor'
+                                cmds.setAttr(arnold_shader_new,value[0][0],value[0][1],value[0][2],type='double3')
+                                if file_node:
+                                    if (True):
+                                        file_paths_face = cmds.getAttr('PxrMetallicWorkflow*'+'.resultSpecularFaceRGB')
+                                        file_paths_edge = cmds.getAttr('PxrMetallicWorkflow*'+'.resultSpecularEdgeRGB')
+                                        cmds.setAttr(arnold_shader_new,((file_paths_face[0][0]+file_paths_edge[0][0])/2),((file_paths_face[0][1]+file_paths_edge[0][1])/2),((file_paths_face[0][2]+file_paths_edge[0][2])/2),type='double3')
+                            if attr == '.specularRoughness' :
+                                arnold_shader=''.join(arnold_shader)
+                                arnold_shader_new=arnold_shader + '.specularRoughness'
+                                cmds.setAttr(arnold_shader_new,value)
+                                if file_node:
+                                    file_path = cmds.listConnections(pxr_mat_new + attr)
+                                    file_path=''.join(file_path)
+                                    cmds.connectAttr(file_path + '.outAlpha',arnold_shader_new)
+                            if attr == '.bumpNormal' :
+                                arnold_shader=''.join(arnold_shader)
+                                arnold_shader_new=arnold_shader + '.normalCamera'
+                                if file_node:
+                                    file_path = cmds.listConnections(pxr_mat_new + attr)
+                                    file_path=''.join(file_path)
+                                    cmds.connectAttr(file_path + '.outValue',arnold_shader_new)
 
                     cmds.sets(sel[0], edit=True, forceElement=shading_group)
     
