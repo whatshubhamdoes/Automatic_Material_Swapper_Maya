@@ -203,24 +203,24 @@ def createUI():
         selected_button = cmds.radioCollection(conversion_group, query=True, select=True)
         selected_button_f = cmds.radioButton(selected_button, query=True, label=True)
         print(f"{selected_button_f=}")
-        if selected_button_f == "Arnold to Renderman":
+        if selected_button_f == "Arnold to Renderman (aiStandardSurface to PxrSurface)":
             convert_aiStandardSurface_material()
-        elif selected_button_f == "Renderman to Arnold":
+        elif selected_button_f == "Renderman to Arnold (PxrSurface to aiStandardSurface)":
             convert_PxrSurface_material()
     
     window_name = "Automatic_Material_Swapper"
     if cmds.window(window_name, exists=True):
         cmds.deleteUI(window_name)
         
-    cmds.window(window_name, title="Automatic Material Swapper : Arnold and Renderman",widthHeight=(500, 200))
+    cmds.window(window_name, title="Automatic Material Swapper : Maya",widthHeight=(500, 200))
 
     # Create a radio button group to choose the conversion function
     layout=cmds.columnLayout(adjustableColumn=True)
     cmds.text(label="Please select the object and then select the conversion function:")
     conversion_group = cmds.radioCollection()
-    arnold_to_renderman_button = cmds.radioButton(label="Arnold to Renderman")
+    arnold_to_renderman_button = cmds.radioButton(label="Arnold to Renderman (aiStandardSurface to PxrSurface)")
     print(f"{arnold_to_renderman_button=}")
-    renderman_to_arnold_button = cmds.radioButton(label="Renderman to Arnold")
+    renderman_to_arnold_button = cmds.radioButton(label="Renderman to Arnold (PxrSurface to aiStandardSurface)")
     print(f"{renderman_to_arnold_button=}")
 
     # Create a button to trigger the selected conversion function
