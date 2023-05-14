@@ -39,11 +39,15 @@ def convert_PxrSurface_material() :
                             # as explained in this - https://rmanwiki.pixar.com/display/REN24/PxrMetallicWorkflow
                             arnold_shader=''.join(arnold_shader)
                             arnold_shader_new=arnold_shader + '.metalness'
-                            file_paths = cmds.listConnections('PxrMetallicWorkflow*'+'.metallic')
-                            if(file_paths):
-                                file_path = file_paths[0]
-                                file_path=''.join(file_path)
-                                cmds.connectAttr(file_path + '.outAlpha', arnold_shader_new) 
+                            #print(arnold_shader_new)
+                            file_paths = cmds.listConnections(pxr_mat_new+'.diffuseColor')
+                            #print(file_paths)
+                            try:
+                                file_paths=''.join(file_paths)
+                                file_paths = cmds.getAttr(file_paths+attr)
+                                cmds.setAttr(arnold_shader_new,file_paths)
+                            except:
+                                pass
                         else:
                             value = cmds.getAttr(pxr_mat_new + attr )
                             file_node=cmds.connectionInfo(pxr_mat_new + attr, sourceFromDestination=True)
@@ -51,17 +55,22 @@ def convert_PxrSurface_material() :
                                 arnold_shader=''.join(arnold_shader)
                                 arnold_shader_new=arnold_shader + '.baseColor'
                                 cmds.setAttr(arnold_shader_new,value[0][0],value[0][1],value[0][2],type='double3')
+                                file_paths = cmds.listConnections(pxr_mat_new+'.diffuseColor')
                                 if file_node:
-                                    if (True):
-                                        file_paths = cmds.listConnections('PxrMetallicWorkflow*'+'.baseColor')
-                                        if(file_paths):
-                                            file_path = file_paths[0]
-                                            file_path=''.join(file_path)
-                                            cmds.connectAttr(file_path + '.outColor', arnold_shader_new)
+                                    file_paths=''.join(file_paths)
+                                    if "Metallic" in file_paths:
+                                        try:
+                                            file_paths = cmds.listConnections(file_paths+'.baseColor')
+                                            print(file_paths)
+                                            file_paths=''.join(file_paths)
+                                            cmds.connectAttr(file_paths + '.outColor', arnold_shader_new)
+                                        except:
+                                            print("except")
+                                            print(file_paths)
+                                            file_paths=cmds.getAttr(file_paths +'.baseColor')
+                                            cmds.setAttr(arnold_shader_new,file_paths)
                                     else:
-                                        file_path = cmds.listConnections(pxr_mat_new + attr,type='file')
-                                        file_path=''.join(file_path)
-                                        cmds.connectAttr(file_path + '.outColor',arnold_shader_new)
+                                        cmds.connectAttr(file_paths + '.outColor', arnold_shader_new)    
                             if attr == '.specularFaceColor' :
                                 arnold_shader=''.join(arnold_shader)
                                 arnold_shader_new=arnold_shader + '.specularColor'
