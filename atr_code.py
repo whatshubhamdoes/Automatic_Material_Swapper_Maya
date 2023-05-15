@@ -5,6 +5,7 @@ import maya.mel as mel
 import os
 import sys
 
+# Function to convert aiStandardSurface to PxrSurface
 def convert_aiStandardSurface_material() :
     # get selected object and if not selected prompt user to select an object#
     sel = cmds.ls(sl=True)
@@ -36,6 +37,8 @@ def convert_aiStandardSurface_material() :
                         arnold_mat_new=''.join(arnold_mat)
                         value = cmds.getAttr(arnold_mat_new + attr )
                         file_node=cmds.connectionInfo(arnold_mat_new + attr, sourceFromDestination=True)
+                        
+                        # checking each attribute and attaching them to PxrSurface
                         if attr == '.baseColor' :
                             renderman_shader=''.join(renderman_shader)
                             renderman_shader_new=renderman_shader + '.diffuseColor'

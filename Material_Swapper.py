@@ -5,7 +5,7 @@ import maya.mel as mel
 import os
 import sys
 
-
+# Function to convert aiStandardSurface to PxrSurface
 def convert_aiStandardSurface_material() :
     # get selected object and if not selected prompt user to select an object#
     sel = cmds.ls(sl=True)
@@ -37,6 +37,8 @@ def convert_aiStandardSurface_material() :
                         arnold_mat_new=''.join(arnold_mat)
                         value = cmds.getAttr(arnold_mat_new + attr )
                         file_node=cmds.connectionInfo(arnold_mat_new + attr, sourceFromDestination=True)
+                        
+                        # checking each attribute and attaching them to PxrSurface
                         if attr == '.baseColor' :
                             renderman_shader=''.join(renderman_shader)
                             renderman_shader_new=renderman_shader + '.diffuseColor'
@@ -102,6 +104,8 @@ def convert_aiStandardSurface_material() :
 
                     cmds.sets(sel[0], edit=True, forceElement=shading_group)
 
+# Function to convert PxrSurface to aiStandardSurface
+
 def convert_PxrSurface_material() :
     # get selected object and if not selected prompt user to select an object#
     sel = cmds.ls(sl=True)
@@ -124,7 +128,7 @@ def convert_PxrSurface_material() :
                     cmds.warning("Error : Selected object does not have an PxrSurface material applied.")
                     return
                 if pxr_mat :
-                    # Create a new RenderMan PxrSurface material
+                    # Create a new aiStandardSurface material
                     arnold_shader = cmds.shadingNode('aiStandardSurface', asShader=True)
                     shading_group = cmds.sets(arnold_shader, renderable=True, noSurfaceShader=True, empty=True, name=arnold_shader + 'SG')
                     cmds.connectAttr(arnold_shader + '.outColor', shading_group + '.surfaceShader', force=True)
@@ -132,6 +136,8 @@ def convert_PxrSurface_material() :
 
                     for attr in components_pxrmat :
                         pxr_mat_new=''.join(pxr_mat)
+
+                        # checking each attribute and attaching them to PxrSurface
                         if(attr=='.metallic'):
                             # as explained in this - https://rmanwiki.pixar.com/display/REN24/PxrMetallicWorkflow
                             arnold_shader=''.join(arnold_shader)
@@ -196,9 +202,10 @@ def convert_PxrSurface_material() :
                     cmds.sets(sel[0], edit=True, forceElement=shading_group)
 
 
+# Function to create the UI and run the functions according to the selection on radio buttons
 def createUI():
     
-    # Define a function to call the selected conversion function
+    # Function to call the selected conversion function
     def convert_selected(conversion_group):
         selected_button = cmds.radioCollection(conversion_group, query=True, select=True)
         selected_button_f = cmds.radioButton(selected_button, query=True, label=True)
@@ -214,7 +221,7 @@ def createUI():
         
     cmds.window(window_name, title="Automatic Material Swapper : Maya",widthHeight=(500, 200))
 
-    # Create a radio button group to choose the conversion function
+    # Creating a radio button group to choose the conversion function
     layout=cmds.columnLayout(adjustableColumn=True)
     cmds.text(label="Please select the object and then select the conversion function:")
     conversion_group = cmds.radioCollection()
@@ -223,9 +230,9 @@ def createUI():
     renderman_to_arnold_button = cmds.radioButton(label="Renderman to Arnold (PxrSurface to aiStandardSurface)")
     print(f"{renderman_to_arnold_button=}")
 
-    # Create a button to trigger the selected conversion function
+    # Creating a button to trigger the selected conversion function
     cmds.button(label="Convert", command=lambda *args: convert_selected(conversion_group))
     cmds.showWindow(window_name)
 
-
+# Calling the createUI function
 createUI()
