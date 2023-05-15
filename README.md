@@ -52,7 +52,7 @@ Supported materials in both the render engines:
 *  ##   The tool currently matches the below mentioned attributes between the two renderers.
 *   Diffuse color
 *   Specular color
-*   Specular roughness
+*   Roughness
 *   Metalness
 *   Normal
 
