@@ -1,7 +1,7 @@
 # Automatic Material Swapper for Maya
 ## version 1.0
 
-![BANNER!](pictures/banner.png)
+![BANNER!](pictures/Banner.png)
 
 This tool can be used to automatically swap between Arnold and Renderman materials in Maya.  
 
