@@ -36,7 +36,7 @@ Supported materials in both the render engines:
 # Renderman
 ![IMAGE6!](pictures/image_6.png) 
 
-# Arnold materials converted to Renderman materials
+# Arnold materials converted to Renderman materials using this tool
 ![IMAGE7!](pictures/image_7.png) 
 
 ## Features details
