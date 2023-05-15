@@ -2,7 +2,9 @@
 ## version 1.0
 
 This tool can be used to automatically swap between Arnold and Renderman materials in Maya.  
+
 https://img.shields.io/github/repo-size/whatshubhamdoes/Automatic_Material_Swapper_Maya
+
 https://img.shields.io/github/last-commit/whatshubhamdoes/Automatic_Material_Swapper_Maya
 
 
@@ -12,9 +14,9 @@ Supported materials in both the render engines:
 
 ## Installation
 * Copy the code from Material_Swapper.py         
- ![Image_1]{pictures\image_1.png}
- ![Image_2]{pictures\image_2.png}
- 
+ ![Image_1]{pictures/image_1.png}
+ ![Image_2]{pictures/image_2.png}
+
 * Create a shelf button in Maya and paste the above copied code.  
 
 ## How to use
