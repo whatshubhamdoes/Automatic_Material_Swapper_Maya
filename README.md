@@ -66,6 +66,6 @@ https://github.com/whatshubhamdoes/Automatic_Material_Swapper_Maya/assets/954025
 
 ## Credits
 Created by :
-Shubham Prabhakar
-M.Sc. Computer Animation and Visual Effects
-Bournemouth University
+* Shubham Prabhakar
+* M.Sc. Computer Animation and Visual Effects
+* Bournemouth University
