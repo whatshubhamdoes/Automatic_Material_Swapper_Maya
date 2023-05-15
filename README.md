@@ -42,7 +42,11 @@ Supported materials in both the render engines:
 ![IMAGE7!](pictures/image_7.png) 
 
 ## Video Demonstrating the tool
-![VIDEO1!](video/Automatic_Material_Swapper.mp4)
+
+
+https://github.com/whatshubhamdoes/Automatic_Material_Swapper_Maya/assets/95402538/486f0e0a-4d5e-48bc-8fc6-2722075a1f07
+
+
 
 ## Features details
 
