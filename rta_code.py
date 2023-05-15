@@ -5,6 +5,8 @@ import maya.mel as mel
 import os
 import sys
 
+# Function to convert PxrSurface to aiStandardSurface
+
 def convert_PxrSurface_material() :
     # get selected object and if not selected prompt user to select an object#
     sel = cmds.ls(sl=True)
@@ -27,7 +29,7 @@ def convert_PxrSurface_material() :
                     cmds.warning("Error : Selected object does not have an PxrSurface material applied.")
                     return
                 if pxr_mat :
-                    # Create a new RenderMan PxrSurface material
+                    # Create a new aiStandardSurface material
                     arnold_shader = cmds.shadingNode('aiStandardSurface', asShader=True)
                     shading_group = cmds.sets(arnold_shader, renderable=True, noSurfaceShader=True, empty=True, name=arnold_shader + 'SG')
                     cmds.connectAttr(arnold_shader + '.outColor', shading_group + '.surfaceShader', force=True)
@@ -35,6 +37,8 @@ def convert_PxrSurface_material() :
 
                     for attr in components_pxrmat :
                         pxr_mat_new=''.join(pxr_mat)
+
+                        # checking each attribute and attaching them to PxrSurface
                         if(attr=='.metallic'):
                             # as explained in this - https://rmanwiki.pixar.com/display/REN24/PxrMetallicWorkflow
                             arnold_shader=''.join(arnold_shader)
