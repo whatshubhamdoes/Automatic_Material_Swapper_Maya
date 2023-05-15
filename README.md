@@ -46,7 +46,8 @@ Supported materials in both the render engines:
 
 https://github.com/whatshubhamdoes/Automatic_Material_Swapper_Maya/assets/95402538/486f0e0a-4d5e-48bc-8fc6-2722075a1f07
 
-
+## Required Packages/Modules
+* If the user has Python, Maya and Renderman installed on their devices then the tool doesn't require any other package/module.
 
 ## Features details
 
