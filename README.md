@@ -14,8 +14,8 @@ Supported materials in both the render engines:
 
 ## Installation
 * Copy the code from Material_Swapper.py         
- ![IMAGE1!]{pictures/image_1.png}
- ![IMAGE2!]{pictures/image_2.png}
+ ![IMAGE1!](pictures/image_1.png)
+ ![IMAGE2!](pictures/image_2.png)
 
 * Create a shelf button in Maya and paste the above copied code.  
 
