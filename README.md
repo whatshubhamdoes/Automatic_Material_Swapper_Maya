@@ -3,11 +3,7 @@
 
 This tool can be used to automatically swap between Arnold and Renderman materials in Maya.  
 
-![GitHub repo file count](https://img.shields.io/github/directory-file-count/whatshubhamdoes/Automatic_Material_Swapper_Maya)
-
-![GitHub repo size](https://img.shields.io/github/repo-size/whatshubhamdoes/Automatic_Material_Swapper_Maya)
-
-![GitHub last commit](https://img.shields.io/github/last-commit/whatshubhamdoes/Automatic_Material_Swapper_Maya)
+![GitHub repo file count](https://img.shields.io/github/directory-file-count/whatshubhamdoes/Automatic_Material_Swapper_Maya) ![GitHub repo size](https://img.shields.io/github/repo-size/whatshubhamdoes/Automatic_Material_Swapper_Maya) ![GitHub last commit](https://img.shields.io/github/last-commit/whatshubhamdoes/Automatic_Material_Swapper_Maya)
 
 
 
