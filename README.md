@@ -9,6 +9,7 @@ https://img.shields.io/github/last-commit/whatshubhamdoes/Automatic_Material_Swa
 
 
 Supported materials in both the render engines: 
+(After discussing with multiple M.A. 3D and M.A. Digital Effects students, I got to know these two are the most used materials in both the renderers)
 * Arnold - aiStandardSurface
 * Renderman - PxrSurface
 
@@ -17,21 +18,32 @@ Supported materials in both the render engines:
  ![IMAGE1!](pictures/image_1.png)
  ![IMAGE2!](pictures/image_2.png)
 
-* Create a shelf button in Maya and paste the above copied code.  
+* Create a shelf button in Maya and paste the above copied code. 
+ ![IMAGE3!](pictures/image_3.png) 
 
 ## How to use
 1. Open a scene with either Arnold (aiStandardSurface) or Renderman (PxrSurface) materials already applied to the objects.
 2. Click on the shelf button to launch the tool  
 3. Select the desired object.
+![IMAGE4!](pictures/image_4.png) 
 4. Choose the correct option on the radio buttons.  
 5. Click on Convert
 6. Done.  
-7. Repeat the same for all the other objects in the scene.  
+7. Repeat the same for all the other objects in the scene.
+
+# Arnold Renderer
+![IMAGE5!](pictures/image_5.png) 
+
+# Renderman
+![IMAGE6!](pictures/image_6.png) 
+
+# Arnold materials converted to Renderman materials
+![IMAGE7!](pictures/image_7.png) 
 
 ## Features details
 
-*   ##  Doesn't create new file nodes  
-*   The tool doesn't create any new file nodes for the texture files.
+*   ##  No new file nodes created  
+*   The tool doesn't create any new file nodes for the texture files and uses the existing file nodes.
 
 *   ##  Error messages 
 *   Error messages are shown if no object is selected or object with the wrong material is selected.
