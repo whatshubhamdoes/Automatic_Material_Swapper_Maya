@@ -41,6 +41,9 @@ Supported materials in both the render engines:
 # Arnold materials converted to Renderman materials using this tool
 ![IMAGE7!](pictures/image_7.png) 
 
+## Video Demonstrating the tool
+![VIDEO1!](video/Automatic_Material_Swapper.mp4)
+
 ## Features details
 
 *   ##  No new file nodes created  
